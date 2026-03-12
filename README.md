@@ -395,11 +395,11 @@ Los criterios de aceptación establecen las condiciones mínimas que el prototip
 
 # Diagramas
 ## Diagrama de Arquitectura
-https://ibb.co/4ZTcS81T
+![alt text](./arquitectura.jpep)
 ## Diagrama de Interacción entre módulos
-https://ibb.co/ZzhMsWq7
+![alt text](./interaccion.jpep)
 ## Diagrama de Secuencia
-https://ibb.co/GwFsJ9T
+![alt text](./secuencia.jpep)
 
 # REFERENCIAS BIBLIOGRÁFICAS
 

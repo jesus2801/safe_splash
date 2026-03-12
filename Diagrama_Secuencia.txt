@@ -1,0 +1,26 @@
+@startuml
+!theme plain
+
+participant "App Móvil" as MobileApp
+participant "Servidor Nube" as CloudServer
+participant "Buzzer" as PhysicalBuzzer
+database "Base de Datos" as DataLog
+
+title Flujo Simplificado de Detección de Riesgo y Alerta
+
+MobileApp -> MobileApp: Monitoreo Activo (Vídeo)
+
+group Detección de Riesgo
+    MobileApp -> CloudServer: Enviar datos de vídeo (HTTP/REST)
+    CloudServer -> DataLog: Loggear Evento (Registro)
+    CloudServer -> MobileApp: Inferencia (Riesgo Detectado/No Detectado)
+end
+
+group Si Riesgo Detectado
+    MobileApp -> PhysicalBuzzer: Activar Alerta Sonora
+    note right of PhysicalBuzzer: Genera sonido de emergencia.
+else No Riesgo
+    MobileApp -> MobileApp: Continuar Monitoreo
+end
+
+@enduml

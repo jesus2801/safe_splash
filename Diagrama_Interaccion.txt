@@ -1,0 +1,33 @@
+@startuml
+!theme plain
+
+title Arquitectura de Alto Nivel - Sistema de Detección de Riesgo de Ahogamiento
+
+' Bloque inicial simplificado
+node "Dispositivo de Captura y preprocesamiento" as Client
+
+' Bloque central con todo el detalle
+node "Servidor en la Nube\nProcesamiento del Sistema" as Cloud {
+
+  component "API REST\nRecepción de Frames" as API
+  component "Motor de Inferencia\nModelo YOLO" as YOLO
+  component "Módulo de Análisis de Riesgo\nPatrones de nado" as Risk
+  component "Sistema de Alertas\nNotificaciones" as Alerts
+  component "Servicio de Monitoreo\nDashboard" as Dashboard
+
+  API --> YOLO : Frames recibidos
+  YOLO --> Risk : Resultados
+  Risk --> Alerts : Evento sospechoso
+  Alerts --> Dashboard : Notificación
+}
+
+' Bloque final simplificado
+database "Base de Datos\n(Logs y Eventos)" as DB
+
+' Conexiones externas
+DB --> Client : Envío de Alerta
+Client --> API : Envío de frames (HTTP)
+Alerts --> DB : Registro de evento
+Dashboard --> DB : Consulta historial
+
+@enduml

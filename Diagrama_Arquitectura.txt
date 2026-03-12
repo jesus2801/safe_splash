@@ -1,0 +1,13 @@
+@startuml
+!theme plain
+
+title Diagrama de Arquitectura de Alto Nivel
+
+node "App Movil - Preprocesamiento" as Client
+node "Servidor en la nube - Procesamiento" as AppServer
+node "Base de Datos (DB Server)" as DBServer
+
+Client --> AppServer : Solicitudes HTTP (REST API)
+AppServer --> DBServer : Consultas SQL / Lectura/Escritura
+
+@enduml

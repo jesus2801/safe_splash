@@ -41,9 +41,9 @@ marzo de 2026
 8.1.3. Requerimientos de Infraestructura y Preparación  
 8.2. Criterios de aceptación iniciales  
 8.3. Plan de trabajo
-9.⁠ ⁠Diseño y arquitectura
-9.1. Evaluación de alternativas
-9.2. Arquitectura
+   9.⁠ ⁠Diseño y arquitectura
+   9.1. Evaluación de alternativas
+   9.2. Arquitectura
 10.⁠ ⁠Implementación
 10.1. Stack tecnológico
 10.2. Componentes
@@ -62,7 +62,7 @@ marzo de 2026
 
 El incremento en la afluencia de usuarios a la piscina semiolímpica de la Universidad del Norte ha intensificado la necesidad de fortalecer los mecanismos de prevención y detección temprana de situaciones de riesgo en el entorno acuático. Actualmente, la identificación de un posible evento de ahogamiento depende exclusivamente de la supervisión humana, lo que introduce limitaciones asociadas a tiempos de reacción, fatiga operativa y cobertura visual en escenarios de alta ocupación.
 
-El presente proyecto propone el diseño e implementación de un sistema inteligente de detección de riesgo de ahogamiento basado en técnicas de visión por computador y modelos de detección de objetos en tiempo real (YOLO) que emplea una cámara fija estratégicamente ubicada para capturar video de los carriles de la piscina y procesar los frames mediante un modelo entrenado para identificar patrones visuales y comportamentales asociados a posibles situaciones de riesgo. La solución se concibe como un sistema de apoyo a la supervisión humana, cuyo propósito es generar alertas oportunas ante comportamientos anómalos o estados prolongados compatibles con riesgo de ahogamiento, contribuyendo así a reducir el tiempo de respuesta ante emergencias.
+El presente proyecto propone el diseño e implementación de un sistema inteligente de detección de riesgo de ahogamiento, basado en técnicas de visión por computador y modelos de detección de objetos en tiempo real (YOLO) que emplea una cámara fija estratégicamente ubicada para capturar video de los carriles de la piscina y procesar los frames mediante un modelo entrenado para identificar patrones visuales y comportamentales asociados a posibles situaciones de riesgo. La solución se concibe como un sistema de apoyo a la supervisión humana, cuyo propósito es generar alertas oportunas ante comportamientos anómalos o estados prolongados compatibles con riesgo de ahogamiento, contribuyendo así a reducir el tiempo de respuesta ante emergencias.
 
 
 

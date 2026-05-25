@@ -26,7 +26,7 @@ El alcance del prototipo se delimita a una validación técnica bajo condiciones
 
 ## ABSTRACT
 
-Drowning is one of the leading causes of accidental death worldwide, with an estimated 236,000 deaths per year globally, disproportionately affecting children and young people [1], [2]. At Universidad del Norte, the sustained increase in users at its semi-Olympic swimming pool has highlighted the limitations of an exclusively human supervision model, which depends on the lifeguard's visual capacity and alertness—factors that can fail due to fatigue, distraction, or high occupancy [3], [5]. This creates a clear need for a supporting system capable of early detection of drowning risk situations, reducing reaction times and complementing the security staff's work.
+Drowning is one of the leading causes of accidental death worldwide, with an estimated 236,000 deaths per year globally, disproportionately affecting children and young people [1], [2]. At Universidad del Norte, the sustained increase in users at its semi-Olympic swimming pool has highlighted the limitations of an exclusively human supervision model, which depends on the lifeguard's visual capacity and alertness factors that can fail due to fatigue, distraction, or high occupancy [3], [5]. This creates a clear need for a supporting system capable of early detection of drowning risk situations, reducing reaction times and complementing the security staff's work.
 
 To address this problem, a functional prototype was designed and implemented based on computer vision and the YOLOv12 object detection model. The system runs entirely on a mobile device where its camera captures video of the pool lanes, and frames are processed locally on the same device by the pre-trained, fine-tuned model stored in the file `best.pt`, which classifies, with a total end-to-end latency below ten seconds (capture to alert), three states: normal swimming, drowning risk, and person out of water. A central contribution was the **manual construction of the institutional Uninorte dataset** (2,197 images and 5,633 annotated instances) through supervised pool capture and frame-by-frame labeling by the research team. Training combined this dataset with public data, applying 2×2 tile preprocessing to approximately 66.5% of the proprietary images. Validation was performed exclusively with institutional data. Results show that the model achieves a mAP@50 of 0.86 on the institutional validation set, and the total system latency from capture to alert is below ten seconds, meeting the established acceptance criterion.
 
@@ -46,7 +46,7 @@ En este contexto, el presente proyecto propone el diseño e implementación de u
 
 Diversas investigaciones recientes han explorado el uso de visión por computador para la detección de eventos de riesgo en entornos acuáticos, modelando el problema como detección de comportamiento anómalo o análisis temporal de secuencias de video. Estos enfoques sugieren que la detección de ahogamiento no puede resolverse únicamente mediante clasificación estática de imágenes, sino que requiere análisis dinámico del movimiento y la postura a lo largo del tiempo. El avance en técnicas de aprendizaje profundo ha permitido el desarrollo de los modelos de la familia YOLO (You Only Look Once) [4], que han demostrado un desempeño sobresaliente en tareas de detección de objetos en tiempo real, combinando alta precisión con baja latencia computacional.
 
-La principal contribución de este proyecto es doble: por un lado, la **construcción de un dataset institucional etiquetado manualmente** en la piscina semiolímpica de la Universidad del Norte, con captura in situ y anotación supervisada de escenas de nado normal y de riesgo simulado; por otro, la propuesta e implementación de un sistema que detecta de forma rápida y automática situaciones de riesgo de ahogamiento, basándose en visión por computadora y aprendizaje profundo entrenado sobre esos datos. Tras el fine-tuning del modelo sobre el dataset propio (2197 imágenes, 5633 instancias), el sistema identifica exitosamente los tres estados relevantes (natación normal, riesgo de ahogamiento y persona fuera del agua) con un mAP@50 de 0.88, Precision de 85.6% y Recall de 82.5% sobre el conjunto de validación institucional.
+La principal contribución de este proyecto es doble debido a que por un lado, se encuentra la construcción de un dataset institucional etiquetado manualmente en la piscina semiolímpica de la Universidad del Norte, con captura in situ y anotación supervisada de escenas de nado normal y de riesgo simulado; por otro, la propuesta e implementación de un sistema que detecta de forma rápida y automática situaciones de riesgo de ahogamiento, basándose en visión por computadora y aprendizaje profundo entrenado sobre esos datos. Tras el fine-tuning del modelo sobre el dataset propio (2197 imágenes, 5633 instancias), el sistema identifica exitosamente los tres estados relevantes (natación normal, riesgo de ahogamiento y persona fuera del agua) con un mAP@50 de 0.88, Precision de 85.6% y Recall de 82.5% sobre el conjunto de validación institucional.
 
 ---
 
@@ -141,12 +141,12 @@ La pregunta de investigación que guía este proyecto es: **¿cómo diseñar un 
 #### Restricciones físicas del entorno
 
 - El sistema opera en la piscina semiolímpica existente de la Universidad del Norte, sin modificaciones estructurales permanentes.  
-- La ubicación del dispositivo de captura está limitada por la infraestructura disponible (paredes, soportes existentes), y los ángulos que no interfieran con la privacidad en zonas externas al área de nado.  
+- La ubicación del dispositivo de captura está limitada por la infraestructura disponible (paredes, soportes existentes), y los ángulos que no interfieran en zonas externas al área de nado.  
 - La iluminación es la propia del entorno (natural y artificial existente), sin control dedicado de condiciones lumínicas.
 
 #### Restricciones técnicas
 
-- El procesamiento en tiempo de ejecución se realiza en el hardware del dispositivo móvil; el entrenamiento del modelo se realizó sobre recursos computacionales del entorno académico (GPU de laboratorio).  
+- El procesamiento en tiempo de ejecución se realiza en el hardware del dispositivo móvil; el entrenamiento del modelo se realizó sobre recursos computacionales del entorno académico (GPU NVIDIA RTX A5000).  
 - El sistema opera con una latencia total máxima de 10 segundos desde la captura hasta la alerta, lo que impone restricciones sobre la complejidad del modelo y la resolución de entrada.  
 - El sistema es exclusivamente basado en visión; no depende de sensores portátiles ni dispositivos electrónicos inteligentes diseñados para llevarse puestos en el cuerpo como accesorios o prendas de vestir sobre los nadadores.
 
@@ -155,7 +155,7 @@ La pregunta de investigación que guía este proyecto es: **¿cómo diseñar un 
 - El dataset está basado en simulaciones controladas de ahogamiento con voluntarios debido a que por razones éticas y prácticas, no se utilizan ni se pueden utilizar imágenes de ahogamientos reales. Todas las escenas de riesgo registradas corresponden a voluntarios que simularon la Respuesta Instintiva de Ahogamiento bajo supervisión del equipo de investigación.  
 - En el dataset se priorizan grabaciones experimentales supervisadas que reproduzcan fielmente los indicadores visuales descritos en la sección 2.1.1.
 
-#### Restricciones éticas y legales
+#### Restricciones éticas
 
 - El sistema no almacena imágenes personales de los usuarios de la piscina semi-olímpica de la Universidad del Norte.  
 - El sistema trata a los nadadores como objetos anónimos, es decir, no realiza reconocimiento facial, no asigna identidades y no hace *tracking* por persona entre frames ni entre sesiones. Cada nadador es detectado únicamente por su clase de comportamiento y posición en la escena.  
@@ -189,7 +189,7 @@ El proyecto contempla el diseño e implementación de un prototipo funcional de 
 
 **Incluido en el alcance:**
 
-- Recolección supervisada in situ y anotación manual de un dataset representativo del entorno de la piscina (2197 imágenes, 5633 instancias).  
+- Recolección supervisada in situ y anotación manual de un dataset representativo del entorno de la piscina.  
 - Entrenamiento y fine-tuning de un modelo de detección basado en YOLOv12.  
 - Implementación de la aplicación móvil con módulos de captura, inferencia local y alertas.  
 - Integración del modelo `best.pt` en el dispositivo para inferencia sin servidor externo.  
@@ -529,10 +529,6 @@ El entrenamiento se realizó en dos etapas:
 - **Etapa 1:** fine-tuning del modelo YOLOv12m preentrenado en COCO sobre el dataset público optimizado.
 - **Etapa 2:** fine-tuning del modelo resultante de la Etapa 1 sobre el dataset combinado (público + institucional), usando exclusivamente datos institucionales para validación.
 
-![Curvas de entrenamiento y validación del modelo YOLOv12m](./entrenamiento_curvas_metricas.jpeg)
-
-*Figura 4. Evolución de las métricas de entrenamiento y validación a lo largo de 100 épocas: pérdidas (*box_loss*, *cls_loss*, *dfl_loss*), precisión, recall y mAP@50 / mAP@50-95.*
-
 **Entorno de entrenamiento y requisitos mínimos para reentrenamiento futuro**
 
 El entrenamiento se ejecutó en una estación de trabajo con la siguiente configuración de hardware, que constituye la **especificación mínima recomendada** para cualquier reentrenamiento futuro del modelo:
@@ -672,6 +668,10 @@ Resultados por clase:
 La segunda etapa incorporó el dataset institucional (imágenes propias de la piscina de la Universidad del Norte) para el fine-tuning del modelo de la Etapa 1. La validación de esta etapa se realizó exclusivamente sobre datos institucionales. Los resultados del modelo final son los siguientes:
 
 **Resultados del modelo final (dataset institucional)**
+
+![Curvas de entrenamiento y validación del modelo YOLOv12m](./entrenamiento_curvas_metricas.jpeg)
+
+*Figura 4. Evolución de las métricas de entrenamiento y validación a lo largo de 100 épocas: pérdidas (*box_loss*, *cls_loss*, *dfl_loss*), precisión, recall y mAP@50 / mAP@50-95.*
 
 ![Métricas de validación del modelo final](./validacion_metricas_modelo.png)
 

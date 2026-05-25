@@ -1,3 +1,5 @@
+![Logo SafeSplash](./images/logo.jpeg)
+
 # SafeSplash: Sistema de Detección de Riesgo en Caso de Ahogamiento Para Piscina Semiolímpica
 
 ## Resumen ejecutivo

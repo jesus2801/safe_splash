@@ -497,10 +497,6 @@ El dataset de entrenamiento se construyó en dos etapas:
 
 **Etapa 2 - Dataset propio (Uninorte):** ver el detalle del proceso de captura y anotación manual en la sección 8.2.3.1. El dataset institucional resultante comprende **2197 imágenes** y **5633 instancias** anotadas (promedio de 2,6 instancias por imagen).
 
-![Sesión de recolección de datos en la piscina](./recoleccion_datos.jpeg)
-
-*Figura 7. Sesión de recolección de datos en la piscina semiolímpica de la Universidad del Norte. El equipo coordinó la captura de imágenes con voluntarios bajo protocolos de simulación supervisada.*
-
 #### 8.2.3.1. Recolección y anotación manual del dataset Uninorte
 
 El dataset institucional no proviene de fuentes públicas descargables: fue construido íntegramente por el equipo de investigación mediante un proceso de campo y de curaduría manual que constituye una contribución metodológica del proyecto, independiente del entrenamiento del modelo YOLOv12.
@@ -777,6 +773,8 @@ Los resultados del sistema SafeSplash (mAP@50 de 0.879) son comparables con los 
 ## ANEXOS
 
 ### Anexo A. Evidencia fotográfica de la sesión de recolección de datos
+
+![Sesión de recolección de datos en la piscina](./recoleccion_datos.jpeg)
 
 > **Figura A1. Sesión de recolección de datos en la piscina semiolímpica de la Universidad del Norte. El equipo capturó imágenes de voluntarios simulando estados de natación normal y situaciones de riesgo bajo protocolos supervisados, utilizadas para construir el dataset institucional de entrenamiento.**
 

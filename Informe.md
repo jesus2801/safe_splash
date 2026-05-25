@@ -416,7 +416,7 @@ Responsabilidad: almacenar metadatos de los eventos detectados para análisis po
 
 A continuación se presenta el diagrama de arquitectura del sistema:
 
-![Diagrama de arquitectura del sistema SafeSplash](./arquitectura.jpeg)
+![Diagrama de arquitectura del sistema SafeSplash](./images/arquitectura.jpeg)
 
 *Figura 1. Diagrama de arquitectura de alto nivel. Todos los módulos residen en un único dispositivo móvil; no hay servidor en la nube ni base de datos externa en tiempo de ejecución.*
 
@@ -434,7 +434,7 @@ Todos los módulos se ejecutan dentro de la misma aplicación Flutter en el disp
 
 El acoplamiento entre módulos es bajo: cada módulo recibe datos del anterior a través de interfaces bien definidas, sin dependencias directas entre implementaciones. Esto facilita la sustitución del modelo de inferencia por una versión actualizada de `best.pt` sin modificar los módulos de análisis, alertas o captura (RNF-05).
 
-![Diagrama de interacción entre módulos](./interaccion.jpeg)
+![Diagrama de interacción entre módulos](./images/interaccion.jpeg)
 
 *Figura 2. Diagrama de interacción entre módulos. La comunicación entre componentes es en memoria, dentro de la misma aplicación Flutter.*
 
@@ -442,7 +442,7 @@ El acoplamiento entre módulos es bajo: cada módulo recibe datos del anterior a
 
 El diagrama de secuencia describe el flujo de una detección de riesgo de extremo a extremo:
 
-![Diagrama de secuencia del flujo de detección y alerta](./secuencia.jpeg)
+![Diagrama de secuencia del flujo de detección y alerta](./images/secuencia.jpeg)
 
 *Figura 3. Diagrama de secuencia del flujo principal de detección de riesgo y emisión de alerta (procesamiento local).*
 
@@ -665,15 +665,15 @@ La segunda etapa incorporó el dataset institucional (imágenes propias de la pi
 
 **Resultados del modelo final (dataset institucional)**
 
-![Curvas de entrenamiento y validación del modelo YOLOv12m](./entrenamiento_curvas_metricas.jpeg)
+![Curvas de entrenamiento y validación del modelo YOLOv12m](./images/entrenamiento_curvas_metricas.jpeg)
 
 *Figura 4. Evolución de las métricas de entrenamiento y validación a lo largo de 100 épocas: pérdidas (*box_loss*, *cls_loss*, *dfl_loss*), precisión, recall y mAP@50 / mAP@50-95.*
 
-![Métricas de validación del modelo final](./validacion_metricas_modelo.png)
+![Métricas de validación del modelo final](./images/validacion_metricas_modelo.png)
 
 *Figura 5. Métricas del modelo final evaluado sobre el conjunto de validación institucional del dataset Uninorte (2197 imágenes, 5633 instancias).*
 
-![Matriz de confusión normalizada del modelo final](./entrenamiento_matriz_confusion.jpeg)
+![Matriz de confusión normalizada del modelo final](./images/entrenamiento_matriz_confusion.jpeg)
 
 *Figura 6. Matriz de confusión normalizada sobre el dataset Uninorte (2197 imágenes, 5633 instancias). Las clases *Drowning*, *Swimming* y *Person out of water* presentan alta diagonal (0.85–0.89); la clase *background* muestra confusión con *Drowning* y *Swimming*, coherente con escenas sin nadador en el área monitoreada.*
 
@@ -774,7 +774,7 @@ Los resultados del sistema SafeSplash (mAP@50 de 0.879) son comparables con los 
 
 ### Anexo A. Evidencia fotográfica de la sesión de recolección de datos
 
-![Sesión de recolección de datos en la piscina](./recoleccion_datos.jpeg)
+![Sesión de recolección de datos en la piscina](./images/recoleccion_datos.jpeg)
 
 > **Figura A1. Sesión de recolección de datos en la piscina semiolímpica de la Universidad del Norte. El equipo capturó imágenes de voluntarios simulando estados de natación normal y situaciones de riesgo bajo protocolos supervisados, utilizadas para construir el dataset institucional de entrenamiento.**
 

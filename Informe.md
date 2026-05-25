@@ -16,7 +16,7 @@ Mayo de 2026
 
 El ahogamiento es una de las principales causas de muerte accidental en el mundo, estimándose aproximadamente 236.000 muertes anuales a nivel global, afectando desproporcionadamente a niños y jóvenes [1], [2]. En la Universidad del Norte, el aumento sostenido de usuarios en su piscina semiolímpica ha evidenciado las limitaciones del modelo de supervisión exclusivamente humano, el cual depende de la capacidad visual y estado de alerta del salvavidas, factores que pueden fallar ante fatiga, distracción o alta ocupación [3], [5]. Por lo tanto, se identifica la necesidad de un sistema de apoyo que detecte de forma temprana situaciones de riesgo de ahogamiento, reduciendo los tiempos de reacción y complementando la labor del personal de seguridad.
 
-Para abordar esta problemática, se diseñó e implementó un prototipo funcional basado en visión por computadora y el modelo de detección de objetos YOLOv12. El sistema opera de forma completamente local en un dispositivo móvil donde la cámara del dispositivo captura el video de los carriles y los frames son procesados en el mismo dispositivo por el modelo preentrenado, ajustado mediante fine-tuning y almacenado localmente en el archivo `best.pt`, el cual clasifica en tiempo real tres estados: natación normal, riesgo de ahogamiento y persona fuera del agua. Para el entrenamiento se combinó un dataset público con imágenes propias de la piscina universitaria, aplicando un preprocesamiento por tiling de 2×2 sobre aproximadamente el 66.5 % de las imágenes del dataset propio. La validación se realizó exclusivamente con datos institucionales. Los resultados obtenidos muestran que el modelo alcanza un mAP@50 de 0.86 sobre el conjunto de validación institucional, y la latencia total del sistema desde la captura hasta la alerta es inferior a diez segundos, cumpliendo el criterio de aceptación establecido.
+Para abordar esta problemática, se diseñó e implementó un prototipo funcional basado en visión por computadora y el modelo de detección de objetos YOLOv12. El sistema opera de forma completamente local en un dispositivo móvil donde la cámara del dispositivo captura el video de los carriles y los frames son procesados en el mismo dispositivo por el modelo preentrenado, ajustado mediante fine-tuning y almacenado localmente en el archivo `best.pt`, el cual clasifica en tiempo real tres estados: natación normal, riesgo de ahogamiento y persona fuera del agua. Un componente central del trabajo fue la **construcción manual del dataset institucional Uninorte** (2197 imágenes y 5633 instancias anotadas), mediante captura supervisada en la piscina y etiquetado frame a frame por el equipo de investigación. Para el entrenamiento se combinó ese dataset con datos públicos, aplicando preprocesamiento por tiling de 2×2 sobre aproximadamente el 66.5 % de las imágenes propias. La validación se realizó exclusivamente con datos institucionales. Los resultados obtenidos muestran que el modelo alcanza un mAP@50 de 0.86 sobre el conjunto de validación institucional, y la latencia total del sistema desde la captura hasta la alerta es inferior a diez segundos, cumpliendo el criterio de aceptación establecido.
 
 El alcance del prototipo se delimita a una validación técnica bajo condiciones controladas en la piscina de la Universidad del Norte, con restricciones de hardware y disponibilidad de datos propias de la institución. La solución se concibe como una herramienta de apoyo al salvavidas, no como un sustituto. El valor del proyecto radica en reducir el tiempo de respuesta ante emergencias acuáticas mediante alertas oportunas, sin requerir infraestructura adicional más allá de un dispositivo móvil convencional, contribuyendo así a fortalecer los mecanismos de seguridad existentes.
 
@@ -28,7 +28,7 @@ El alcance del prototipo se delimita a una validación técnica bajo condiciones
 
 Drowning is one of the leading causes of accidental death worldwide, with an estimated 236,000 deaths per year globally, disproportionately affecting children and young people [1], [2]. At Universidad del Norte, the sustained increase in users at its semi-Olympic swimming pool has highlighted the limitations of an exclusively human supervision model, which depends on the lifeguard's visual capacity and alertness—factors that can fail due to fatigue, distraction, or high occupancy [3], [5]. This creates a clear need for a supporting system capable of early detection of drowning risk situations, reducing reaction times and complementing the security staff's work.
 
-To address this problem, a functional prototype was designed and implemented based on computer vision and the YOLOv12 object detection model. The system runs entirely on a mobile device where its camera captures video of the pool lanes, and frames are processed locally on the same device by the pre-trained, fine-tuned model stored in the file `best.pt`, which classifies, with a total end-to-end latency below ten seconds (capture to alert), three states: normal swimming, drowning risk, and person out of water. Training combined a public dataset with images collected at the university's own pool, applying 2×2 tile preprocessing to approximately 66.5% of the proprietary dataset images. Validation was performed exclusively with institutional data. Results show that the model achieves a mAP@50 of 0.86 on the institutional validation set, and the total system latency from capture to alert is below ten seconds, meeting the established acceptance criterion.
+To address this problem, a functional prototype was designed and implemented based on computer vision and the YOLOv12 object detection model. The system runs entirely on a mobile device where its camera captures video of the pool lanes, and frames are processed locally on the same device by the pre-trained, fine-tuned model stored in the file `best.pt`, which classifies, with a total end-to-end latency below ten seconds (capture to alert), three states: normal swimming, drowning risk, and person out of water. A central contribution was the **manual construction of the institutional Uninorte dataset** (2,197 images and 5,633 annotated instances) through supervised pool capture and frame-by-frame labeling by the research team. Training combined this dataset with public data, applying 2×2 tile preprocessing to approximately 66.5% of the proprietary images. Validation was performed exclusively with institutional data. Results show that the model achieves a mAP@50 of 0.86 on the institutional validation set, and the total system latency from capture to alert is below ten seconds, meeting the established acceptance criterion.
 
 The prototype's scope is limited to a technical validation under controlled conditions at the Universidad del Norte pool, subject to hardware and data availability constraints inherent to the institution. The solution is conceived as a tool to support lifeguards, not to replace them. Its value lies in reducing emergency response times through timely alerts, without requiring any additional infrastructure beyond a conventional mobile device, thereby contributing to strengthening existing safety mechanisms.
 
@@ -46,7 +46,7 @@ En este contexto, el presente proyecto propone el diseño e implementación de u
 
 Diversas investigaciones recientes han explorado el uso de visión por computador para la detección de eventos de riesgo en entornos acuáticos, modelando el problema como detección de comportamiento anómalo o análisis temporal de secuencias de video. Estos enfoques sugieren que la detección de ahogamiento no puede resolverse únicamente mediante clasificación estática de imágenes, sino que requiere análisis dinámico del movimiento y la postura a lo largo del tiempo. El avance en técnicas de aprendizaje profundo ha permitido el desarrollo de los modelos de la familia YOLO (You Only Look Once) [4], que han demostrado un desempeño sobresaliente en tareas de detección de objetos en tiempo real, combinando alta precisión con baja latencia computacional.
 
-La principal contribución de este proyecto es la propuesta e implementación de un sistema que detecta de forma rápida y automática situaciones de riesgo de ahogamiento, basándose en visión por computadora y aprendizaje profundo, entrenado sobre datos representativos del entorno real de la piscina semiolímpica de la Universidad del Norte. Tras el fine-tuning del modelo sobre el dataset propio, el sistema identifica exitosamente los tres estados relevantes (natación normal, riesgo de ahogamiento y persona fuera del agua) con un mAP@50 de 0.88, Precision de 85.6% y Recall de 82.5% sobre el conjunto de validación institucional.
+La principal contribución de este proyecto es doble: por un lado, la **construcción de un dataset institucional etiquetado manualmente** en la piscina semiolímpica de la Universidad del Norte, con captura in situ y anotación supervisada de escenas de nado normal y de riesgo simulado; por otro, la propuesta e implementación de un sistema que detecta de forma rápida y automática situaciones de riesgo de ahogamiento, basándose en visión por computadora y aprendizaje profundo entrenado sobre esos datos. Tras el fine-tuning del modelo sobre el dataset propio (2197 imágenes, 5633 instancias), el sistema identifica exitosamente los tres estados relevantes (natación normal, riesgo de ahogamiento y persona fuera del agua) con un mAP@50 de 0.88, Precision de 85.6% y Recall de 82.5% sobre el conjunto de validación institucional.
 
 ---
 
@@ -189,7 +189,7 @@ El proyecto contempla el diseño e implementación de un prototipo funcional de 
 
 **Incluido en el alcance:**
 
-- Recolección y anotación de un dataset representativo del entorno de la piscina.  
+- Recolección supervisada in situ y anotación manual de un dataset representativo del entorno de la piscina (2197 imágenes, 5633 instancias).  
 - Entrenamiento y fine-tuning de un modelo de detección basado en YOLOv12.  
 - Implementación de la aplicación móvil con módulos de captura, inferencia local y alertas.  
 - Integración del modelo `best.pt` en el dispositivo para inferencia sin servidor externo.  
@@ -217,7 +217,7 @@ Diseñar e implementar un sistema inteligente basado en visión por computador c
 ### 4.2. Objetivos Específicos
 
 1. Diseñar la arquitectura de software del sistema, especificando los módulos de captura, procesamiento e interacción con el usuario y las relaciones entre ellos.
-2. Construir y anotar un dataset representativo del entorno real de la piscina, combinando datos públicos disponibles con imágenes capturadas in situ en la instalación universitaria, con escenas de simulación de ahogamiento y nado normal.
+2. Construir y anotar manualmente un dataset representativo del entorno real de la piscina, mediante captura supervisada in situ y etiquetado de bounding boxes en Roboflow, combinando datos públicos con imágenes institucionales de escenas de simulación de ahogamiento y nado normal.
 3. Seleccionar, adaptar y entrenar un modelo de detección basado en la familia YOLO mediante fine-tuning sobre el dataset construido, alcanzando un **mAP@50 ≥ 0.85**, **Recall ≥ 70 %** y **Precision ≥ 60 %** sobre el conjunto de validación institucional para la clase *Drowning*.
 4. Implementar un prototipo funcional capaz de procesar video capturado por un dispositivo móvil con latencia total inferior a 10 segundos (captura a alerta) y generar alertas ante situaciones de riesgo.
 5. Evaluar el desempeño del sistema mediante métricas de precisión (Precision ≥ 60 %), sensibilidad (Recall ≥ 70 %), mAP@50 (≥ 0.85) y latencia extremo a extremo (≤ 10 s), contrastando los resultados con los criterios de aceptación definidos.
@@ -281,7 +281,7 @@ Hasan et al. (citado en [20]) construyeron un dataset comparativo capturando vid
 
 | ID    | Requerimiento                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| RF-01 | El sistema debe capturar video continuo desde la cámara del dispositivo móvil con resolución mínima de 720p y tasa no inferior a 15 fps.                                                                                                                                                                                                                                                                                                                                                                          |
+| RF-01 | El sistema debe capturar video continuo desde la cámara del dispositivo móvil con resolución mínima de 720p y procesar frames a una tasa de 0,5 fps (un frame cada 2 segundos).                                                                                                                                                                                                                                                                                                                                                                          |
 | RF-02 | El sistema debe ejecutar la inferencia del modelo localmente en el dispositivo, sin depender de conectividad de red ni de servidores externos.                                                                                                                                                                                                                                                                                                                                                                    |
 | RF-03 | El sistema debe identificar patrones visuales asociados a riesgo de ahogamiento, correspondientes a la *Respuesta Instintiva de Ahogamiento* (véase sección 2.1.1): postura corporal predominantemente **vertical** (en lugar de la posición horizontal del nado normal), sin progresión horizontal en el carril, brazos extendidos lateralmente sin braceo coordinado, piernas sin patada efectiva, e inmovilidad prolongada en el agua. Estos indicadores son la base del criterio de clasificación del modelo. |
 | RF-04 | Ante la detección sostenida de un comportamiento de riesgo, el sistema debe emitir una alerta perceptible por el personal de vigilancia dentro de un tiempo máximo de 10 segundos desde el inicio del evento.                                                                                                                                                                                                                                                                                                     |
@@ -378,7 +378,7 @@ Esta arquitectura es consistente con la alternativa seleccionada en la sección 
 
 Responsabilidad: adquirir frames de video desde la cámara del dispositivo y entregarlos al motor de inferencia local.
 
-- Captura video con resolución configurada (mínimo 720p, 15 fps) mediante los plugins de cámara de Flutter.  
+- Captura video con resolución configurada (mínimo 720p) y extrae frames para inferencia a 0,5 fps mediante los plugins de cámara de Flutter.  
 - Extrae frames individuales a la tasa definida y los pasa directamente al módulo de inferencia sin transmisión por red.  
 - Relación con requerimientos: RF-01, RNF-02.
 
@@ -416,7 +416,9 @@ Responsabilidad: almacenar metadatos de los eventos detectados para análisis po
 
 A continuación se presenta el diagrama de arquitectura del sistema:
 
-Diagrama de Arquitectura
+![Diagrama de arquitectura del sistema SafeSplash](./arquitectura.jpeg)
+
+*Figura 1. Diagrama de arquitectura de alto nivel. Todos los módulos residen en un único dispositivo móvil; no hay servidor en la nube ni base de datos externa en tiempo de ejecución.*
 
 ##### 7.2.2.2. Interacción entre Módulos
 
@@ -432,13 +434,17 @@ Todos los módulos se ejecutan dentro de la misma aplicación Flutter en el disp
 
 El acoplamiento entre módulos es bajo: cada módulo recibe datos del anterior a través de interfaces bien definidas, sin dependencias directas entre implementaciones. Esto facilita la sustitución del modelo de inferencia por una versión actualizada de `best.pt` sin modificar los módulos de análisis, alertas o captura (RNF-05).
 
-Diagrama de Interacción entre Módulos
+![Diagrama de interacción entre módulos](./interaccion.jpeg)
+
+*Figura 2. Diagrama de interacción entre módulos. La comunicación entre componentes es en memoria, dentro de la misma aplicación Flutter.*
 
 ##### 7.2.2.3. Comportamiento
 
 El diagrama de secuencia describe el flujo de una detección de riesgo de extremo a extremo:
 
-Diagrama de Secuencia
+![Diagrama de secuencia del flujo de detección y alerta](./secuencia.jpeg)
+
+*Figura 3. Diagrama de secuencia del flujo principal de detección de riesgo y emisión de alerta (procesamiento local).*
 
 **Análisis del comportamiento:**
 
@@ -489,9 +495,32 @@ El dataset de entrenamiento se construyó en dos etapas:
 
 **Etapa 1 - Dataset público:** se utilizó el *Swimming and Drowning Detection Dataset* disponible en Roboflow, etiquetado con las tres clases de interés (*Swimming*, *Drowning*, *Person out of water*). Este dataset provee variedad de escenarios acuáticos pero no representa específicamente las condiciones de la piscina de la Universidad del Norte.
 
-**Etapa 2 - Dataset propio:** se recolectaron imágenes en la piscina semiolímpica de la Universidad del Norte durante sesiones supervisadas con voluntarios que simularon comportamientos normales y de riesgo bajo protocolos controlados. Estas imágenes fueron anotadas manualmente en Roboflow.
+**Etapa 2 - Dataset propio (Uninorte):** ver el detalle del proceso de captura y anotación manual en la sección 8.2.3.1. El dataset institucional resultante comprende **2197 imágenes** y **5633 instancias** anotadas (promedio de 2,6 instancias por imagen).
 
-> **Figura 1. Sesión de recolección de datos en la piscina semiolímpica de la Universidad del Norte. Voluntarios simulando comportamientos de natación normal y de riesgo bajo supervisión del equipo.**
+![Sesión de recolección de datos en la piscina](./recoleccion_datos.jpeg)
+
+*Figura 7. Sesión de recolección de datos en la piscina semiolímpica de la Universidad del Norte. El equipo coordinó la captura de imágenes con voluntarios bajo protocolos de simulación supervisada.*
+
+#### 8.2.3.1. Recolección y anotación manual del dataset Uninorte
+
+El dataset institucional no proviene de fuentes públicas descargables: fue construido íntegramente por el equipo de investigación mediante un proceso de campo y de curaduría manual que constituye una contribución metodológica del proyecto, independiente del entrenamiento del modelo YOLOv12.
+
+**Captura de imágenes in situ**
+
+Las imágenes se obtuvieron en la piscina semiolímpica de la Universidad del Norte durante sesiones de recolección supervisadas, con autorización y coordinación del personal de la instalación. En cada sesión:
+
+- Se posicionó un dispositivo móvil en un soporte elevado con vista aérea de los carriles, replicando la configuración de operación del sistema.
+- Participaron voluntarios previamente informados que ejecutaron, bajo indicación del equipo, escenarios de nado normal (*Swimming*), simulación de la Respuesta Instintiva de Ahogamiento (*Drowning*) según los criterios de la sección 2.1.1, y presencia fuera del agua (*Person out of water*).
+- Se variaron deliberadamente condiciones dei luminación (luz natural, mixta y artificial), número de nadadores simultáneos (hasta cuatro personas en agua) y distancia respecto a la cámara (carriles cercanos y alejados), para aumentar la variabilidad visual del dataset.
+- Por restricciones éticas y prácticas (sección 3.2), no se utilizaron imágenes de ahogamientos reales; todas las escenas de riesgo corresponden a simulaciones controladas.
+
+**Anotación manual y control de calidad**
+
+Cada imagen fue revisada y etiquetada manualmente en la plataforma Roboflow por los tres integrantes del equipo de investigación, quienes dibujaron una bounding box por instancia visible y asignaron la clase correspondiente. Antes de iniciar el etiquetado masivo, el equipo acordó criterios explícitos derivados de la definición clínica de la RIA y del nado normal (secciones 2.1.1 y 2.6), con el fin de reducir ambigüedades entre *Drowning* y *Swimming*. Durante el proceso se revisaron casos límite (oclusiones entre nadadores, reflejos en la superficie, posturas intermedias) y se corrigieron cajas mal ajustadas o etiquetas inconsistentes.
+
+El resultado de este trabajo manual es un conjunto de 2197 imágenes con 5633 instancias anotadas en formato YOLO, exportado desde Roboflow al pipeline de entrenamiento Ultralytics. La densidad de anotaciones (múltiples nadadores por escena) refleja la operación real de la piscina con varios usuarios simultáneos.
+
+**Preprocesamiento posterior (tiling)**
 
 Sobre aproximadamente el 66.5 % de las imágenes del dataset propio se aplicó preprocesamiento por tiling 2×2, generando cuatro sub-imágenes por imagen original, con el objetivo de incrementar la densidad de instancias y mejorar la sensibilidad del modelo ante nadadores a mayor distancia de la cámara.
 
@@ -499,6 +528,10 @@ El entrenamiento se realizó en dos etapas:
 
 - **Etapa 1:** fine-tuning del modelo YOLOv12m preentrenado en COCO sobre el dataset público optimizado.
 - **Etapa 2:** fine-tuning del modelo resultante de la Etapa 1 sobre el dataset combinado (público + institucional), usando exclusivamente datos institucionales para validación.
+
+![Curvas de entrenamiento y validación del modelo YOLOv12m](./entrenamiento_curvas_metricas.jpeg)
+
+*Figura 4. Evolución de las métricas de entrenamiento y validación a lo largo de 100 épocas: pérdidas (*box_loss*, *cls_loss*, *dfl_loss*), precisión, recall y mAP@50 / mAP@50-95.*
 
 **Entorno de entrenamiento y requisitos mínimos para reentrenamiento futuro**
 
@@ -525,7 +558,7 @@ El módulo de alertas opera completamente en el dispositivo: cuando el módulo d
 | App Móvil ↔ Modelo YOLOv12m local (`best.pt`)      | Operativa  | La aplicación carga el modelo al iniciar y ejecuta inferencias en el dispositivo sobre cada frame capturado. No requiere red.                                                    |
 | App Móvil ↔ Cámara del dispositivo                 | Operativa  | Los plugins de Flutter acceden a la cámara del dispositivo y entregan frames al módulo de inferencia en memoria.                                                                 |
 | App Móvil ↔ Registro local de eventos (JSON)       | Operativa  | La aplicación escribe un archivo JSON en el almacenamiento interno del dispositivo con una entrada por evento de alerta (timestamp, clase, confianza). No se almacenan imágenes. |
-| Roboflow ↔ Pipeline de entrenamiento (Ultralytics) | Finalizada | El dataset fue exportado desde Roboflow en formato YOLO y utilizado en el entrenamiento con Ultralytics. El modelo resultante fue exportado al formato de inferencia móvil.      |
+| Roboflow ↔ Pipeline de entrenamiento (Ultralytics) | Finalizada | Tras la anotación manual del dataset Uninorte (5633 instancias), el conjunto fue exportado desde Roboflow en formato YOLO y utilizado en el entrenamiento con Ultralytics. El modelo resultante fue exportado al formato de inferencia móvil.      |
 
 
 ---
@@ -559,7 +592,7 @@ El módulo de alertas opera completamente en el dispositivo: cuando el módulo d
 
 **Módulo de captura**
 
-Se verificó la correcta adquisición de frames desde la cámara del dispositivo mediante los plugins de Flutter. Se midió la tasa efectiva de frames capturados y la estabilidad del pipeline de captura durante sesiones de 30 minutos. **Resultado:** el módulo opera de forma continua sin pérdida de frames significativa. La tasa de captura se mantiene estable en las condiciones de uso previstas.
+Se verificó la correcta adquisición de frames desde la cámara del dispositivo mediante los plugins de Flutter. Se midió la tasa efectiva de frames procesados (0,5 fps) y la estabilidad del pipeline de captura durante sesiones de 30 minutos. **Resultado:** el módulo opera de forma continua sin pérdida de frames significativa. La tasa de procesamiento se mantiene estable en las condiciones de uso previstas.
 
 **Módulo de inferencia local**
 
@@ -615,9 +648,7 @@ Se realizaron pruebas de usabilidad con el personal de apoyo de la piscina para 
 
 El entrenamiento se realizó en dos etapas. La primera etapa consistió en fine-tuning sobre el dataset público optimizado (*splash_optimized*). Los resultados del mejor modelo obtenido en esta etapa, evaluado sobre el conjunto de prueba, son los siguientes:
 
-Resultados del modelo - Etapa 1 (dataset público)
-
-*Figura 1. Métricas del modelo entrenado en la Etapa 1 (dataset público), evaluado sobre el conjunto de prueba. Imagen de tamaño de entrada 1280 px.*
+**Resultados del modelo — Etapa 1 (dataset público)**
 
 
 | Métrica   | Valor  |
@@ -640,11 +671,15 @@ Resultados por clase:
 
 La segunda etapa incorporó el dataset institucional (imágenes propias de la piscina de la Universidad del Norte) para el fine-tuning del modelo de la Etapa 1. La validación de esta etapa se realizó exclusivamente sobre datos institucionales. Los resultados del modelo final son los siguientes:
 
-Resultados del modelo final (dataset institucional)
+**Resultados del modelo final (dataset institucional)**
 
-![Val_pred](https://i.imgur.com/vzu7gl3.jpeg)
+![Métricas de validación del modelo final](./validacion_metricas_modelo.png)
 
-*Figura 2. Métricas del modelo final, evaluado sobre el conjunto de validación institucional (1478 imágenes, 2748 instancias).*
+*Figura 5. Métricas del modelo final evaluado sobre el conjunto de validación institucional del dataset Uninorte (2197 imágenes, 5633 instancias).*
+
+![Matriz de confusión normalizada del modelo final](./entrenamiento_matriz_confusion.jpeg)
+
+*Figura 6. Matriz de confusión normalizada sobre el dataset Uninorte (2197 imágenes, 5633 instancias). Las clases *Drowning*, *Swimming* y *Person out of water* presentan alta diagonal (0.85–0.89); la clase *background* muestra confusión con *Drowning* y *Swimming*, coherente con escenas sin nadador en el área monitoreada.*
 
 
 | Métrica           | Valor |
@@ -741,13 +776,11 @@ Los resultados del sistema SafeSplash (mAP@50 de 0.879) son comparables con los 
 
 ## ANEXOS
 
-### Anexo A. Diagrama de secuencia PlantUML
-
-### Anexo B. Evidencia fotográfica de la sesión de recolección de datos
+### Anexo A. Evidencia fotográfica de la sesión de recolección de datos
 
 > **Figura A1. Sesión de recolección de datos en la piscina semiolímpica de la Universidad del Norte. El equipo capturó imágenes de voluntarios simulando estados de natación normal y situaciones de riesgo bajo protocolos supervisados, utilizadas para construir el dataset institucional de entrenamiento.**
 
-### Anexo C. Criterios de aceptación - tabla de verificación
+### Anexo B. Criterios de aceptación - tabla de verificación
 
 
 | ID    | Criterio                                            | Umbral          | Resultado medido       | Estado   |
